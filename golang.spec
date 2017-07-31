@@ -102,7 +102,7 @@
 
 Name:           %{?scl_prefix}golang
 Version:        1.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Go Programming Language
 # source tree includes several copies of Mark.Twain-Tom.Sawyer.txt under Public Domain
 License:        BSD and Public Domain
@@ -115,7 +115,7 @@ Source1:        fedora.go
 %if !%{golang_bootstrap}
 BuildRequires:  gcc-go >= 5
 %else
-BuildRequires:  golang > 1.4
+BuildRequires:  %{?scl_prefix}golang > 1.4
 %endif
 %if 0%{?rhel} > 6 || 0%{?fedora} > 0
 BuildRequires:  hostname
@@ -270,7 +270,7 @@ cat /proc/meminfo
 %if !%{golang_bootstrap}
 export GOROOT_BOOTSTRAP=/
 %else
-export GOROOT_BOOTSTRAP=/usr/lib/golang
+export GOROOT_BOOTSTRAP=%{goroot}
 %endif
 
 # set up final install location
@@ -489,6 +489,9 @@ cd ..
 %endif
 
 %changelog
+* Wed Jun 14 2017 Jakub Čajka <jcajka@redhat.com> - 1.8.3-2
+- regular GTS build
+
 * Tue Jun 06 2017 Jakub Čajka <jcajka@redhat.com> - 1.8.3-1
 - initial GTS build
 
