@@ -102,7 +102,7 @@
 
 Name:           %{?scl_prefix}golang
 Version:        1.8.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Go Programming Language
 # source tree includes several copies of Mark.Twain-Tom.Sawyer.txt under Public Domain
 License:        BSD and Public Domain
@@ -146,6 +146,9 @@ Patch219: s390x-expose-IfInfomsg-X__ifi_pad.patch
 
 # https://github.com/golang/go/commit/94aba76639cf4d5e30975d846bb0368db8202269
 Patch220: 31bit-OID-asn1.patch
+
+# https://github.com/golang/go/issues/20670
+Patch221: ppc64le-trampolines.patch
 
 # Having documentation separate was broken
 Obsoletes:      %{name}-docs < 1.1-4
@@ -252,6 +255,10 @@ Requires:       %{name} = %{version}-%{release}
 %patch215 -p1
 
 %patch219 -p1
+
+%patch220 -p1
+
+%patch221 -p1
 
 cp %{SOURCE1} ./src/runtime/
 
@@ -489,6 +496,10 @@ cd ..
 %endif
 
 %changelog
+* Thu Jun 22 2017 Jakub Čajka <jcajka@redhat.com> - 1.8.3-3
+- apply asn1 patch
+- add ppc64le trampolines patch
+
 * Wed Jun 14 2017 Jakub Čajka <jcajka@redhat.com> - 1.8.3-2
 - regular GTS build
 
