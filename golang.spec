@@ -102,7 +102,7 @@
 
 Name:           %{?scl_prefix}golang
 Version:        1.8.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The Go Programming Language
 # source tree includes several copies of Mark.Twain-Tom.Sawyer.txt under Public Domain
 License:        BSD and Public Domain
@@ -208,7 +208,7 @@ Requires:       %{?scl_prefix}go = %{version}-%{release}
 # We strip the meta dependency, but go does require glibc.
 # This is an odd issue, still looking for a better fix.
 Requires:       glibc
-Requires:       gcc
+Requires:       /usr/bin/gcc
 %{?scl:Requires: %scl_runtime}
 %description    bin
 %{summary}
@@ -496,6 +496,10 @@ cd ..
 %endif
 
 %changelog
+* Thu Aug 31 2017 Tom Stellard <tstellar@redhat.com> - 1.8.3-4
+- Explicitly require /usr/bin/gcc
+- Resolves: #1487345
+
 * Thu Jun 22 2017 Jakub Čajka <jcajka@redhat.com> - 1.8.3-3
 - apply asn1 patch
 - add ppc64le trampolines patch
